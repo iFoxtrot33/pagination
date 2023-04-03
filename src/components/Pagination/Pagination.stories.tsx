@@ -1,27 +1,27 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Pagination, { IPaginationProps } from "./Pagination";
+import { QueryClient, QueryClientProvider } from "react-query";
+import Pagination from "./Pagination";
 
-const meta: Meta<IPaginationProps> = {
+const queryClient = new QueryClient();
+
+const queryPagination: React.FC = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Pagination />
+    </QueryClientProvider>
+  );
+};
+
+const meta: Meta = {
   title: "Pagination",
-  component: Pagination,
+  component: queryPagination,
 };
 
 export default meta;
 
-type Story = StoryObj<IPaginationProps>;
+type Story = StoryObj;
 
 export const DynamicPagination: Story = {
-  args: {
-    API_URL: "https://jsonplaceholder.typicode.com/photos?_limit=10&_page=",
-    TOTAL_COUNT_HEADER: "x-total-count",
-    dynamic: true,
-  },
-};
-
-export const StaticPagination: Story = {
-  args: {
-    API_URL: "https://jsonplaceholder.typicode.com/photos?_limit=10&_page=",
-    TOTAL_COUNT_HEADER: "x-total-count",
-    dynamic: false,
-  },
+  args: {},
 };
